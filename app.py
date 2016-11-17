@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect
-import os
+import os, webbrowser
 
 app = Flask(__name__)
 
@@ -27,6 +27,7 @@ def mars():
 	secret = request.form['password']
 
 	if name == '' or secret == '':
+		webbrowser.open('https://www.youtube.com/watch?v=3PsUJFEBC74')
 		return redirect(url_for('signup'))
 	
 	return render_template('mars.html', name=name)
