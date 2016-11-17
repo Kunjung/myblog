@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript">
+
+    var intval = 0;
+    var op1 = 0;
+    var valueInBox = 0;
+    var operation = 0;
+
+    var pointval = 0;
+    var decimalplaces = 0;
+    var pointuse = false;
+    // number catching
+    function number(n) {
+        if (pointuse == false) {
+          intval = intval * 10 + n;
+          valueInBox = intval;
+          document.form.result.value = valueInBox;
+        }
+        else {
+          decimalplaces += 1;
+
+          pointval = pointval * 10 + n;
+
+          valueInBox = intval + pointval/(Math.pow(10,decimalplaces))
+          document.form.result.value = valueInBox;
+        }
+
+    };
+    // operations
+    function add() {
+        op1 = valueInBox;
+        clear();
+        document.form.result.value = 0;   // reset
+        operation = 1;
+    };
+    function minus() {
+        op1 = valueInBox;
+        clear();
+        document.form.result.value = 0;   // reset
+        operation = 2;
+    };
+    function mult() {
+        op1 = valueInBox;
+        clear();
+        document.form.result.value = 0;   // reset
+        operation = 3;
+    };
+    function div() {
+        op1 = valueInBox;
+        clear();
+        document.form.result.value = 0;   // reset
+        operation = 4;
+    };
+    // final result calculation
+    function equal() {
+
+        if (operation == 1) {
+          valueInBox = op1 + valueInBox;
+        }
+        else if (operation == 2) {
+          valueInBox = op1 - valueInBox;
+        }
+        else if (operation == 3) {
+          valueInBox = op1 * valueInBox;
+        }
+        else if (operation == 4) {
+          valueInBox = op1 / valueInBox;
+        }
+
+        document.form.result.value = valueInBox;
+
+        operation = 0;
+        valueInBox = 0;
+        op1 = 0;
+        clear();
+    };
+
+    function point() {
+      pointuse = true;
+    };
+
+    function clear() {
+
+        intval = 0;
+        pointval = 0;
+        pointuse = false;
+        decimalplaces = 0;
+    };
+
+
+</script>
+<h1>Calculator</h1>
+<div style="text-align: center; border:3px solid green">
+  <form name="form">
+    <table style="text-align:center">
+    <tr>
+      <td colspan="4">
+        <input type="text" name="result">
+      </td>
+    </tr>
+    <!-- first row -->
+    <tr>
+      <td>
+        <input type="button" name="one" value="1" onclick="number(1)"/>
+      </td>
+      <td>
+        <input type="button" name="two" value="2" onclick="number(2)"/>
+      </td>
+      <td>
+        <input type="button" name="three" value="3" onclick="number(3)"/>
+      </td>
+        <td>
+        <input type="button" name="badd" value="+" onclick="add()"/>
+      </td>
+    </tr>
+    <!-- second row -->
+    <tr>
+      <td>
+        <input type="button" name="four" value="4" onclick="number(4)"/>
+      </td>
+      <td>
+        <input type="button" name="five" value="5" onclick="number(5)"/>
+      </td>
+      <td>
+        <input type="button" name="six" value="6" onclick="number(6)"/>
+      </td>
+        <td>
+        <input type="button" name="bminus" value="-" onclick="minus()"/>
+      </td>
+    </tr>
+    <!-- third row -->
+    <tr>
+      <td>
+        <input type="button" name="seven" value="7" onclick="number(7)"/>
+      </td>
+      <td>
+        <input type="button" name="eight" value="8" onclick="number(8)"/>
+      </td>
+      <td>
+        <input type="button" name="nine" value="9" onclick="number(9)"/>
+      </td>
+        <td>
+        <input type="button" name="bmult" value="*" onclick="mult()"/>
+      </td>
+    </tr>
+    <!-- 4th row -->
+    <tr>
+      <td>
+        <input type="button" name="zero" value="0" onclick="number(0)"/>
+      </td>
+      <td>
+      <input type="button" name="bpoint" value="." onclick="point()"/>
+    </td>
+      <td>
+        <input type="button" name="bequal" value="=" onclick="equal()"/>
+      </td>
+      <td>
+        <input type="button" name="bdiv" value="/" onclick="div()"/>
+      </td>
+
+    </tr>
+    <tr>
+      <td colspan = 4>
+        <input type="button" name="bclear" value="clear everything" onclick="clear()"/>
+      </td>
+    </tr>
+  </table>
+</form>
+</div>
+
+{% endblock %}
