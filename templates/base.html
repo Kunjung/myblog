@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>My Blog: Kunjung Sherpa</title>
+
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+
+<style>
+
+body {
+	font-family: 'Gloria Hallelujah', arial;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+a:hover {
+	background-color: yellow;
+}
+h1 {
+	text-align: center;
+    
+    color: #8ac640;
+    
+}
+.navigation_bar {
+	margin: 20px 40px 20px 40px;
+	padding: 30px;
+	background: #68da00;
+	list-style: none;
+}
+.navigation {
+	margin: auto;
+	font-size: 30px;
+	align: center;
+}
+.congratulations {
+	font-family: 'Gloria Hallelujah', cursive;
+
+}
+ 
+</style>
+ 
+</head>
+<body>
+	<div class="navigation">
+	<ul class="navigation_bar">
+		<li style="display: inline-block">	<a href="{{url_for('home')}}">Home</a>	</li>
+		<li style="display: inline-block">	<a href="{{url_for('blog')}}">Blog</a>	</li>
+		<li style="display: inline-block">	<a href="{{url_for('gallery')}}">Gallery</a>	</li>
+		<li style="display: inline-block">	<a href="{{url_for('signup')}}">Signup</a>	</li>
+		<li style="display: inline-block">	<a href="{{url_for('about')}}">About</a>	</li>
+
+	</ul>
+	</div>
+	
+
+	{% block content %}
+ 	{% endblock %}
+ 
+</body>
+</html>
