@@ -1,8 +1,33 @@
 from flask import Flask, render_template, request, url_for, redirect
 import os, webbrowser
 
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
 
+#####################
+# Setup Database
+#######################
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myblog.db'
+app.config['SQLALCHEMY_ECHO'] = True
+db = SQLAlchemy(app)
+
+
+class Mars(db.Model):
+	__tablename__ = 'mars'
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.Text, unique=True)
+	password = db.Column(db.Text)
+
+	def __init__(self, name, password):
+		self.name = name
+		self.password = password
+
+
+####################
+# Routes and URLS
+###################
 @app.route('/')
 def home():
 	return render_template('home.html')
@@ -27,9 +52,14 @@ def mars():
 	secret = request.form['password']
 
 	if name == '' or secret == '':
-		webbrowser.open('https://www.youtube.com/watch?v=3PsUJFEBC74')
 		return redirect(url_for('signup'))
-	
+
+	# Sign up a new Person
+	human = Mars(name, secret)
+	db.session.add(human)
+	db.session.commit()
+
+	webbrowser.open('https://www.youtube.com/watch?v=3PsUJFEBC74')
 	return render_template('mars.html', name=name)
 
 
@@ -40,6 +70,11 @@ def about():
 @app.route('/calculator')
 def calculator():
 	return render_template('calculator.html')
+
+@app.route('/applicants')
+def applicants():
+	applicants = Mars.query.all()
+	return render_template('applicants.html', applicants = applicants)
 
 
 

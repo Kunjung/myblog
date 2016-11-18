@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ol>
+	{% for applicant in applicants %}
+	<li> {{ applicant.name }} </li>
+	{% endfor %}
+
+{% endblock %}
